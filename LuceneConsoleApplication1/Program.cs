@@ -58,6 +58,7 @@ namespace LuceneConsoleApplication1
             };
 
             BidSourceConfigBLL configService = new BidSourceConfigBLL();
+
             configService.Insert(config);
 
             var bidList = sp.DownLoadBids(config);
