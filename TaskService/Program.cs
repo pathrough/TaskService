@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Pathrough.TaskService;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,7 @@ namespace TaskService
     {
         static void Main(string[] args)
         {
+            TaskManager.Current.Init();
         }
     }
 }
