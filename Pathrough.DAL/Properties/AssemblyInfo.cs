@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // 有关程序集的常规信息通过以下
 // 特性集控制。更改这些特性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle("Pathrough.Entity")]
+[assembly: AssemblyTitle("Pathrough.DAL")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Pathrough.Entity")]
+[assembly: AssemblyProduct("Pathrough.DAL")]
 [assembly: AssemblyCopyright("Copyright ©  2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // 如果此项目向 COM 公开，则下列 GUID 用于类型库的 ID
-[assembly: Guid("8591e564-8c1a-41e9-8274-555bc8f6e3e3")]
+[assembly: Guid("7e4b914d-73ed-4e6b-81bf-cad6cdf6307e")]
 
 // 程序集的版本信息由下面四个值组成: 
 //

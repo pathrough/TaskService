@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Pathrough.IDAL
+namespace Pathrough.Entity
 {
-    public class Class1
+    public class Bid
     {
     }
 }

@@ -1,4 +1,6 @@
-﻿using Pathrough.Factory;
+﻿using Pathrough.Common;
+using Pathrough.Entity;
+using Pathrough.Factory;
 using Pathrough.IDAL;
 using Pathrough.Model;
 using System;
@@ -9,43 +11,28 @@ using System.Threading.Tasks;
 
 namespace Pathrough.BLL
 {
-    public class BidBLL
+    public class BidBLL : BLLBase<Bid>
     {
-        protected IBidDAL orderDal;
         public BidBLL()
         {
-            //在这里需要实力化orderDal
-            orderDal = BidDALFactory.CreateInstance();
+            //初始化dal服务
+            this.dalService = DALFactory.CreateOrder<IBidDAL>
+                (FactoryConfig.Bid.AssemblyPath, FactoryConfig.Bid.ClassName);
+        }
+        public bool Inset(Bid bid)
+        {
+            //业务1
+            //业务2
+            return dalService.Insert(bid);
         }
 
-        public bool Insert(BidModel model)
+        #region IOrderDAL的专用方法
+        public void 专用方法Dom()
         {
-            //业务点1
-            //业务点2
-            return orderDal.Insert();
+            IBidDAL orderbll = dalService as IBidDAL;
+            //调用IOrderDAL的专有方法
+            //orderbll.专有方法();
         }
-
-        /// <summary>
-        /// 修改Order表数据
-        /// </summary>
-        /// <param name="model">表数据对应实体</param>
-        /// <returns>成功:true,失败:false</returns>
-        public bool Update(BidModel model)
-        {
-            //业务点1
-            //业务点2
-            return orderDal.Update(model);
-        }
-        /// <summary>
-        /// 删除Order表指定ID的记录
-        /// </summary>
-        /// <param name="id">表ID</param>
-        /// <returns>成功:true,失败:false</returns>
-        public bool Delete(int id)
-        {
-            //业务点1
-            //业务点2
-            return orderDal.Delete(id);
-        }
+        #endregion
     }
 }
