@@ -43,16 +43,6 @@
     <Compile Include="BidDALFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Pathrough.DAL\Pathrough.DAL.csproj">
-      <Project>{c80e3f0c-9786-4ecf-ae20-d4089c742758}</Project>
-      <Name>Pathrough.DAL</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Pathrough.IDAL\Pathrough.IDAL.csproj">
-      <Project>{28c17b7c-fea8-466d-b11a-865581a35775}</Project>
-      <Name>Pathrough.IDAL</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
