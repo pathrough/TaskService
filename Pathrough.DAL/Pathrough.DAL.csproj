@@ -40,11 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ADOBase.cs" />
-    <Compile Include="BidDAL.cs" />
-    <Compile Include="DalActiveProvider.cs" />
     <Compile Include="DALBase.cs" />
-    <Compile Include="EFBase.cs" />
+    <Compile Include="ISession.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

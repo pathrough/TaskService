@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Pathrough.BLL
 {
-    public class BidBLL : BLLBase<Bid>
+    public class BidBLL : BLLBase<Bid>//,IOrderBLL
     {
         public BidBLL()
         {
