@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pathrough.TaskService", "Pa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IocConsoleApplication1", "IocConsoleApplication1\IocConsoleApplication1.csproj", "{6D0035D5-77F8-4BC0-9628-902B7439DB73}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FenCiConsoleApplication1", "FenCiConsoleApplication1\FenCiConsoleApplication1.csproj", "{03C27393-FBFC-43AF-916E-D259780E4A31}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{6D0035D5-77F8-4BC0-9628-902B7439DB73}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6D0035D5-77F8-4BC0-9628-902B7439DB73}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6D0035D5-77F8-4BC0-9628-902B7439DB73}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03C27393-FBFC-43AF-916E-D259780E4A31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03C27393-FBFC-43AF-916E-D259780E4A31}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03C27393-FBFC-43AF-916E-D259780E4A31}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03C27393-FBFC-43AF-916E-D259780E4A31}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
