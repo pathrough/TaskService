@@ -39,6 +39,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pathrough.EF", "Pathrough.E
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LuceneConsoleApplication1", "LuceneConsoleApplication1\LuceneConsoleApplication1.csproj", "{B6FE0A60-7905-4487-8841-E140B006EFB3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pathrough.Lucene", "Pathrough.Lucene\Pathrough.Lucene.csproj", "{01BEFB97-FD7F-40F2-B30B-AAD9D197EB37}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -109,6 +111,10 @@ Global
 		{B6FE0A60-7905-4487-8841-E140B006EFB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B6FE0A60-7905-4487-8841-E140B006EFB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B6FE0A60-7905-4487-8841-E140B006EFB3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01BEFB97-FD7F-40F2-B30B-AAD9D197EB37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01BEFB97-FD7F-40F2-B30B-AAD9D197EB37}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01BEFB97-FD7F-40F2-B30B-AAD9D197EB37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01BEFB97-FD7F-40F2-B30B-AAD9D197EB37}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

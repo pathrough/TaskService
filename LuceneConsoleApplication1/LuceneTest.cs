@@ -1,4 +1,5 @@
 ﻿using Lucene.Net.Analysis;
+using Lucene.Net.Analysis.PanGu;
 using Lucene.Net.Analysis.Standard;
 using Lucene.Net.Documents;
 using Lucene.Net.Index;
@@ -14,12 +15,13 @@ using System.Threading.Tasks;
 
 namespace LuceneConsoleApplication1
 {
-    class Bid
+    public class Bid
     {
         public long ID { get; set; }
         public string Title { get; set; }
         public string BidContent { get; set; }
     }
+
     public class SplitContent
     {
         public static string[] SplitWords(string content)
@@ -61,7 +63,7 @@ namespace LuceneConsoleApplication1
     public class LuceneTest
     {
         string indexPath = "IndexData";
-        private void CreateIndexByData()
+        public void CreateIndexByData<T>(List<T> list, Action<Document, T> AddField)
         {            
             FSDirectory directory = FSDirectory.Open(new DirectoryInfo(indexPath), new NativeFSLockFactory());
             bool isExist = IndexReader.IndexExists(directory);
@@ -74,147 +76,64 @@ namespace LuceneConsoleApplication1
                     IndexWriter.Unlock(directory);
                 }
             }
-            //IndexWriter writer = new IndexWriter(directory, new PanGuAnalyzer(), !isExist, IndexWriter.MaxFieldLength.UNLIMITED);
-            IndexWriter writer = new IndexWriter(directory, new StandardAnalyzer(Lucene.Net.Util.Version.LUCENE_30), !isExist, IndexWriter.MaxFieldLength.UNLIMITED);
-            List<Bid> bidList = new List<Bid> { 
-            new Bid{ID=1,Title="",BidContent=""}
-            };
-            foreach(var bid in bidList)
+            IndexWriter writer = new IndexWriter(directory, new PanGuAnalyzer(), !isExist, IndexWriter.MaxFieldLength.UNLIMITED);
+            //List<Bid> bidList = new List<Bid> { 
+            //new Bid{ID=1,Title="盘古分词",BidContent="通过这个 Demo.exe 你可以对盘古分词的各种参数进行测试，你也可以点击保持配置来生成你在界面上设置好的参数的配置文件。"}
+            //};
+            foreach (var item in list)
             {
                 Document doc = new Document();
-                //Field.Index.ANALYZED:指定文章内容按照分词后结果保存 否则无法实现后续的模糊查询 
-                //WITH_POSITIONS_OFFSETS:指示不仅保存分割后的词 还保存词之间的距离
-                doc.Add(new Field("id",bid.ID.ToString(),Field.Store.YES,Field.Index.NOT_ANALYZED));
-                doc.Add(new Field("title",bid.Title,Field.Store.YES,Field.Index.ANALYZED,Field.TermVector.WITH_POSITIONS_OFFSETS));
-                doc.Add(new Field("content",bid.BidContent,Field.Store.YES,Field.Index.ANALYZED,Field.TermVector.WITH_POSITIONS_OFFSETS));
+                ////Field.Index.ANALYZED:指定文章内容按照分词后结果保存 否则无法实现后续的模糊查询 
+                ////WITH_POSITIONS_OFFSETS:指示不仅保存分割后的词 还保存词之间的距离
+                //doc.Add(new Field("id",bid.ID.ToString(),Field.Store.YES,Field.Index.NOT_ANALYZED));
+                //doc.Add(new Field("title",bid.Title,Field.Store.YES,Field.Index.ANALYZED,Field.TermVector.WITH_POSITIONS_OFFSETS));
+                //doc.Add(new Field("content",bid.BidContent,Field.Store.YES,Field.Index.ANALYZED,Field.TermVector.WITH_POSITIONS_OFFSETS));
+                AddField(doc,item);
                 writer.AddDocument(doc);
             }
             writer.Close();
-            directory.Dispose();
+            directory.Close();
         }
 
         /// <summary>
         /// 从索引库中检索关键字
         /// </summary>
-        private void SearchFromIndexData(string kw)
+        public List<T> SearchFromIndexData<T>(string kw, Action<T, Document> AddResult) where T:new()
         {
             FSDirectory directory = FSDirectory.Open(new DirectoryInfo(indexPath), new NoLockFactory());
             IndexReader reader = IndexReader.Open(directory, true);
             IndexSearcher searcher = new IndexSearcher(reader);
-            //搜索条件
-            PhraseQuery query = new PhraseQuery();
+            
+            PhraseQuery query = new PhraseQuery();//搜索条件
+
             //把用户输入的关键字进行分词
             foreach (string word in SplitContent.SplitWords(kw))
             {
-                query.Add(new Term("content", word));
+                query.Add(new Term("content", word));//多个查询条件时 为且的关系
             }
-            //query.Add(new Term("content", "C#"));//多个查询条件时 为且的关系
-            query.Slop=100; //指定关键词相隔最大距离
+            query.SetSlop(100); //指定关键词相隔最大距离
 
-            //TopScoreDocCollector盛放查询结果的容器
-            TopScoreDocCollector collector = TopScoreDocCollector.Create(1000, true);
+          
+            TopScoreDocCollector collector = TopScoreDocCollector.create(1000, true);  //TopScoreDocCollector盛放查询结果的容器
             searcher.Search(query, null, collector);//根据query查询条件进行查询，查询结果放入collector容器
-            //TopDocs 指定0到GetTotalHits() 即所有查询结果中的文档 如果TopDocs(20,10)则意味着获取第20-30之间文档内容 达到分页的效果
-            ScoreDoc[] docs = collector.TopDocs(0, collector.TotalHits).ScoreDocs;
+            ScoreDoc[] docs = collector.TopDocs(0, collector.GetTotalHits()).scoreDocs;//TopDocs 指定0到GetTotalHits() 即所有查询结果中的文档 如果TopDocs(20,10)则意味着获取第20-30之间文档内容 达到分页的效果
 
             //展示数据实体对象集合
-            List<Bid> bookResult = new List<Bid>();
+            List<T> bookResult = new List<T>();
             for (int i = 0; i < docs.Length; i++)
             {
-                int docId = docs[i].Doc;//得到查询结果文档的id（Lucene内部分配的id）
+                int docId = docs[i].doc;//得到查询结果文档的id（Lucene内部分配的id）
                 Document doc = searcher.Doc(docId);//根据文档id来获得文档对象Document
-
-
-                Bid book = new Bid();
-                book.Title = doc.Get("title");
-                //搜索关键字高亮显示 使用盘古提供高亮插件
-                book.BidContent = SplitContent.HightLight(kw, doc.Get("content"));
-                book.ID = Convert.ToInt32(doc.Get("id"));
-                bookResult.Add(book);
+                T entity = new T();
+                AddResult(entity, doc);
+                bookResult.Add(entity);
+                //Bid book = new Bid();
+                //book.Title = doc.Get("title");               
+                //book.BidContent = SplitContent.HightLight(kw, doc.Get("content")); //搜索关键字高亮显示 使用盘古提供高亮插件
+                //book.ID = Convert.ToInt32(doc.Get("id"));
+                //bookResult.Add(book);
             }
+            return bookResult;
         }
-        public LuceneTest()
-        {
-
-        }
-
-        private const string FieldName = "name";
-
-        private const string FieldValue = "value";
-
-
-
-        //private Directory directory = new RAMDirectory();
-
-        //private Analyzer analyzer = new StandardAnalyzer(Lucene.Net.Util.Version.LUCENE_30);
-
-        //private void Index()
-        //{
-
-        //    IndexWriter writer = new IndexWriter(directory, analyzer,new IndexWriter.MaxFieldLength(1000));
-
-        //    for (int i = 1; i <= 100; i++)
-        //    {
-
-        //        Document document = new Document();
-
-        //        document.Add(new Field(FieldName, "name" + i, Field.Store.YES, Field.Index.ANALYZED));
-
-        //        document.Add(new Field(FieldValue, "Hello, World!", Field.Store.YES, Field.Index.ANALYZED));
-
-        //        writer.AddDocument(document);
-
-        //    }
-
-        //    writer.Optimize();
-
-        //    writer.Close();
-
-        //}
-
-
-
-        //private void Search()
-        //{
-
-        //    Query query = QueryParser.Parse("name*", FieldName, analyzer);
-
-
-
-        //    IndexSearcher searcher = new IndexSearcher(directory);
-
-
-
-        //    Hits hits = searcher.Search(query);
-
-
-
-        //    Console.WriteLine("符合条件记录:{0}; 索引库记录总数:{1}", hits.Length(), searcher.Reader.NumDocs());
-
-        //    for (int i = 0; i < hits.Length(); i++)
-        //    {
-
-        //        int docId = hits.Id(i);
-
-        //        string name = hits.Doc(i).Get(FieldName);
-
-        //        string value = hits.Doc(i).Get(FieldValue);
-
-        //        float score = hits.Score(i);
-
-
-
-        //        Console.WriteLine("{0}: DocId:{1}; Name:{2}; Value:{3}; Score:{4}",
-
-        //            i + 1, docId, name, value, score);
-
-        //    }
-
-
-
-        //    searcher.Close();
-
-        //}
-
     }
 }
