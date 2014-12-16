@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Pathrough.Lucene.Common
+namespace Pathrough.LuceneSE.Common
 {
     public class IndexConfig
     {
@@ -12,7 +12,7 @@ namespace Pathrough.Lucene.Common
         {
             get
             {
-                return "IndexData";
+                return @"E:\IndexData";
             }
 
     }

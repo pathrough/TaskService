@@ -8,5 +8,9 @@ namespace Pathrough.Entity
 {
     public class Bid
     {
+        public long? BidID { get; set; }
+        public string BidTitle { get; set; }
+        public string BidContent { get; set; }
+        public string BidSourceUrl{get;set;}
     }
 }

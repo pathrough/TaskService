@@ -38,12 +38,8 @@
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\packages\EntityFramework.6.0.2\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="ICSharpCode.SharpZipLib">
-      <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
-    </Reference>
-    <Reference Include="Lucene.Net, Version=2.9.2.2, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Debug\Lucene.Net.dll</HintPath>
+    <Reference Include="HtmlAgilityPack">
+      <HintPath>..\..\Dlls\HtmlAgilityPack.dll</HintPath>
     </Reference>
     <Reference Include="PanGu, Version=2.3.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -67,13 +63,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="LuceneTest.cs" />
+    <Compile Include="ListUrlAccessor.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Pathrough.BLL\Pathrough.BLL.csproj">
+      <Project>{83dd654f-9e92-4dd8-a12f-602f5814849d}</Project>
+      <Name>Pathrough.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Pathrough.Entity\Pathrough.Entity.csproj">
+      <Project>{7e9dcbae-6e03-4e27-ad55-03a7e5124625}</Project>
+      <Name>Pathrough.Entity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Pathrough.Lucene\Pathrough.LuceneSE.csproj">
+      <Project>{01befb97-fd7f-40f2-b30b-aad9d197eb37}</Project>
+      <Name>Pathrough.LuceneSE</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

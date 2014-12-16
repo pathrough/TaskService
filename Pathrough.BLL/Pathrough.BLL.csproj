@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="HtmlAgilityPack">
+      <HintPath>..\..\Dlls\HtmlAgilityPack.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -42,6 +45,7 @@
     <Compile Include="BidBLL.cs" />
     <Compile Include="BLLBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Spider\BidSpider.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Pathrough.Common\Pathrough.Common.csproj">
@@ -60,9 +64,17 @@
       <Project>{463e1114-6674-4412-a7ee-855b06e9595c}</Project>
       <Name>Pathrough.IDAL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Pathrough.Lucene\Pathrough.LuceneSE.csproj">
+      <Project>{01befb97-fd7f-40f2-b30b-aad9d197eb37}</Project>
+      <Name>Pathrough.LuceneSE</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Pathrough.Model\Pathrough.Model.csproj">
       <Project>{5b69b51d-d5ae-4246-8043-9e6a4add6944}</Project>
       <Name>Pathrough.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Pathrough.Web\Pathrough.Web.csproj">
+      <Project>{20d3c35c-8c1c-40c7-8a6c-4a06083936bd}</Project>
+      <Name>Pathrough.Web</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

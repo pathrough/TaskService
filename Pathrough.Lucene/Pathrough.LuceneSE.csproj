@@ -7,8 +7,8 @@
     <ProjectGuid>{01BEFB97-FD7F-40F2-B30B-AAD9D197EB37}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Pathrough.Lucene</RootNamespace>
-    <AssemblyName>Pathrough.Lucene</AssemblyName>
+    <RootNamespace>Pathrough.LuceneSearchEngine</RootNamespace>
+    <AssemblyName>Pathrough.LuceneSearchEngine</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -51,11 +51,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AbstractSearchEngine.cs" />
+    <Compile Include="BidSearchEngine.cs" />
     <Compile Include="Common\IndexConfig.cs" />
     <Compile Include="Indexer.cs" />
     <Compile Include="Searcher.cs" />
     <Compile Include="SplitContent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Pathrough.Entity\Pathrough.Entity.csproj">
+      <Project>{7e9dcbae-6e03-4e27-ad55-03a7e5124625}</Project>
+      <Name>Pathrough.Entity</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

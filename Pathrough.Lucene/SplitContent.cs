@@ -1,18 +1,22 @@
-﻿using System;
+﻿using Lucene.Net.Analysis;
+using Lucene.Net.Analysis.PanGu;
+using PanGu;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Pathrough.Lucene
+namespace Pathrough.LuceneSE
 {
     public class SplitContent
     {
         public static string[] SplitWords(string content)
-        {
+        {            
             List<string> strList = new List<string>();
             Analyzer analyzer = new PanGuAnalyzer();//指定使用盘古 PanGuAnalyzer 分词算法
-            TokenStream tokenStream = analyzer.TokenStream("", new StringReader(content));
+            TokenStream tokenStream = analyzer.TokenStream("", new StringReader(content));            
             Lucene.Net.Analysis.Token token = null;
             while ((token = tokenStream.Next()) != null)
             { //Next继续分词 直至返回null
@@ -30,6 +34,11 @@ namespace Pathrough.Lucene
         /// <returns> 高亮后结果 </returns>
         public static string HightLight(string keyword, string content)
         {
+            return HightLight( keyword,  content, 500);
+        }
+
+        public static string HightLight(string keyword, string content, int iFragmentSize)
+        {
             //创建HTMLFormatter,参数为高亮单词的前后缀
             PanGu.HighLight.SimpleHTMLFormatter simpleHTMLFormatter =
                 new PanGu.HighLight.SimpleHTMLFormatter("<font style=\"font-style:normal;color:#cc0000;\"><b>", "</b></font>");
@@ -38,7 +47,7 @@ namespace Pathrough.Lucene
                             new PanGu.HighLight.Highlighter(simpleHTMLFormatter,
                             new Segment());
             //设置每个摘要段的字符数
-            highlighter.FragmentSize = 1000;
+            highlighter.FragmentSize = iFragmentSize;
             //获取最匹配的摘要段
             return highlighter.GetBestFragment(keyword, content);
         }

@@ -1,0 +1,16 @@
+﻿@model List<BidMvcApplication.Models.Bid>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+<form method="get">
+    <input type="text" name="kw" value="@ViewBag.kw" /><input type="submit" value="搜索" />
+</form>
+<div>
+    @foreach(var bid in Model)
+    {
+        <div><a href="@bid.Url" target="_blank">@bid.Title</a></div>
+        <div>@Html.Raw(bid.Content)</div>
+    }
+</div>

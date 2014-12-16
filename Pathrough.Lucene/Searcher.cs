@@ -2,7 +2,7 @@
 using Lucene.Net.Index;
 using Lucene.Net.Search;
 using Lucene.Net.Store;
-using Pathrough.Lucene.Common;
+using Pathrough.LuceneSE.Common;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -10,27 +10,27 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Pathrough.Lucene
+namespace Pathrough.LuceneSE
 {
     public class Searcher
     {
         /// <summary>
         /// 从索引库中检索关键字
         /// </summary>
-        public List<T> SearchFromIndexData<T>(string kw, Action<T, Document> AddResult) where T : new()
+        public static List<T> SearchFromIndexData<T>(Query query, Action<T, Document> AddResult,string indexPath) where T : new()
         {
-            FSDirectory directory = FSDirectory.Open(new DirectoryInfo(IndexConfig.IndexDirectory), new NoLockFactory());
+            FSDirectory directory = FSDirectory.Open(new DirectoryInfo(indexPath), new NoLockFactory());
             IndexReader reader = IndexReader.Open(directory, true);
             IndexSearcher searcher = new IndexSearcher(reader);
 
-            PhraseQuery query = new PhraseQuery();//搜索条件
+            //PhraseQuery query = new PhraseQuery();//搜索条件
 
-            //把用户输入的关键字进行分词
-            foreach (string word in SplitContent.SplitWords(kw))
-            {
-                query.Add(new Term("content", word));//多个查询条件时 为且的关系
-            }
-            query.SetSlop(100); //指定关键词相隔最大距离
+            ////把用户输入的关键字进行分词
+            //foreach (string word in SplitContent.SplitWords(kw))
+            //{
+            //    query.Add(new Term("content", word));//多个查询条件时 为且的关系
+            //}
+            //query.SetSlop(100); //指定关键词相隔最大距离
 
             TopScoreDocCollector collector = TopScoreDocCollector.create(1000, true);  //TopScoreDocCollector盛放查询结果的容器
             searcher.Search(query, null, collector);//根据query查询条件进行查询，查询结果放入collector容器
