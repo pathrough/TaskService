@@ -55,10 +55,6 @@
       <Project>{ef5480ae-30be-48f1-bc36-3c5a74ccd0a1}</Project>
       <Name>Pathrough.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Pathrough.EF\Pathrough.EF.csproj">
-      <Project>{a7f2a549-fc05-4ecd-b46f-e0b9d2ebebf5}</Project>
-      <Name>Pathrough.EF</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Pathrough.Entity\Pathrough.Entity.csproj">
       <Project>{7e9dcbae-6e03-4e27-ad55-03a7e5124625}</Project>
       <Name>Pathrough.Entity</Name>

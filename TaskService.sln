@@ -13,8 +13,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FenCiConsoleApplication1", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HtmlToOpenXmlConsoleApplication1", "HtmlToOpenXmlConsoleApplication1\HtmlToOpenXmlConsoleApplication1.csproj", "{016AD7EE-63EB-4FE4-94FD-AC7CF76638D7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pathrough.BLL", "Pathrough.BLL\Pathrough.BLL.csproj", "{83DD654F-9E92-4DD8-A12F-602F5814849D}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pathrough.Model", "Pathrough.Model\Pathrough.Model.csproj", "{5B69B51D-D5AE-4246-8043-9E6A4ADD6944}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pathrough.Factory", "Pathrough.Factory\Pathrough.Factory.csproj", "{24CC401F-7B31-4AF9-98FC-F16B8E2876C1}"
@@ -33,8 +31,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataAccess", "DataAccess", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pathrough.ADO", "Pathrough.ADO\Pathrough.ADO.csproj", "{6AE070E1-9C63-498B-81B9-15672335E034}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pathrough.EF", "Pathrough.EF\Pathrough.EF.csproj", "{A7F2A549-FC05-4ECD-B46F-E0B9D2EBEBF5}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LuceneConsoleApplication1", "LuceneConsoleApplication1\LuceneConsoleApplication1.csproj", "{B6FE0A60-7905-4487-8841-E140B006EFB3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pathrough.LuceneSE", "Pathrough.Lucene\Pathrough.LuceneSE.csproj", "{01BEFB97-FD7F-40F2-B30B-AAD9D197EB37}"
@@ -44,6 +40,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BidMvcApplication.Tests", "BidMvcApplication.Tests\BidMvcApplication.Tests.csproj", "{C4040AD4-03DE-4BD3-A9B2-DD6ECB654F2A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BidSpiderConsoleApplication1", "BidSpiderConsoleApplication1\BidSpiderConsoleApplication1.csproj", "{73E43F90-F475-4640-97D4-BAEB7D38F50B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pathrough.EF", "Pathrough.EF\Pathrough.EF.csproj", "{A7F2A549-FC05-4ECD-B46F-E0B9D2EBEBF5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pathrough.BLL", "Pathrough.BLL\Pathrough.BLL.csproj", "{83DD654F-9E92-4DD8-A12F-602F5814849D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -71,10 +71,6 @@ Global
 		{016AD7EE-63EB-4FE4-94FD-AC7CF76638D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{016AD7EE-63EB-4FE4-94FD-AC7CF76638D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{016AD7EE-63EB-4FE4-94FD-AC7CF76638D7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{83DD654F-9E92-4DD8-A12F-602F5814849D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{83DD654F-9E92-4DD8-A12F-602F5814849D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{83DD654F-9E92-4DD8-A12F-602F5814849D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{83DD654F-9E92-4DD8-A12F-602F5814849D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5B69B51D-D5AE-4246-8043-9E6A4ADD6944}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5B69B51D-D5AE-4246-8043-9E6A4ADD6944}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5B69B51D-D5AE-4246-8043-9E6A4ADD6944}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -103,10 +99,6 @@ Global
 		{6AE070E1-9C63-498B-81B9-15672335E034}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6AE070E1-9C63-498B-81B9-15672335E034}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6AE070E1-9C63-498B-81B9-15672335E034}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A7F2A549-FC05-4ECD-B46F-E0B9D2EBEBF5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A7F2A549-FC05-4ECD-B46F-E0B9D2EBEBF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A7F2A549-FC05-4ECD-B46F-E0B9D2EBEBF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A7F2A549-FC05-4ECD-B46F-E0B9D2EBEBF5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B6FE0A60-7905-4487-8841-E140B006EFB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B6FE0A60-7905-4487-8841-E140B006EFB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B6FE0A60-7905-4487-8841-E140B006EFB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -127,6 +119,14 @@ Global
 		{73E43F90-F475-4640-97D4-BAEB7D38F50B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{73E43F90-F475-4640-97D4-BAEB7D38F50B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{73E43F90-F475-4640-97D4-BAEB7D38F50B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7F2A549-FC05-4ECD-B46F-E0B9D2EBEBF5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7F2A549-FC05-4ECD-B46F-E0B9D2EBEBF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7F2A549-FC05-4ECD-B46F-E0B9D2EBEBF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7F2A549-FC05-4ECD-B46F-E0B9D2EBEBF5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83DD654F-9E92-4DD8-A12F-602F5814849D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83DD654F-9E92-4DD8-A12F-602F5814849D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83DD654F-9E92-4DD8-A12F-602F5814849D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83DD654F-9E92-4DD8-A12F-602F5814849D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

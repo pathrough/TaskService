@@ -72,10 +72,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Pathrough.BLL\Pathrough.BLL.csproj">
-      <Project>{83dd654f-9e92-4dd8-a12f-602f5814849d}</Project>
-      <Name>Pathrough.BLL</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Pathrough.Entity\Pathrough.Entity.csproj">
       <Project>{7e9dcbae-6e03-4e27-ad55-03a7e5124625}</Project>
       <Name>Pathrough.Entity</Name>
