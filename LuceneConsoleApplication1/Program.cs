@@ -1,4 +1,5 @@
 ﻿using HtmlAgilityPack;
+using Pathrough.BLL;
 using Pathrough.BLL.Spider;
 using Pathrough.Entity;
 using Pathrough.LuceneSE;
@@ -26,17 +27,48 @@ namespace LuceneConsoleApplication1
             //    , new string[] { @"http://www.chinabidding.com/zbzx-detail-\d+.html" });
 
             BidWebsiteSpider sp = new BidWebsiteSpider();
-            Thread listThread = new Thread(
-                () => {
-                sp.LoadListUrlQueue("http://www.chinabidding.com/zbzx.jhtml?method=outlineOne&type=biddingProjectGG&channelId=205"
-                    , new string[] { @"http://www.chinabidding.com/zbzx.jhtml\?.+" });
-            });
-            listThread.Start();
+            //Thread listThread = new Thread(
+            //    () => {
+            //    sp.LoadListUrlQueue("http://www.chinabidding.com/zbzx.jhtml?method=outlineOne&type=biddingProjectGG&channelId=205"
+            //        , new string[] { @"http://www.chinabidding.com/zbzx.jhtml\?.+" });
+            //});
+            //listThread.Start();
 
-            Thread detialThread = new Thread(() => {
-                sp.DownLoadDetail(new string[] { @"http://www.chinabidding.com/zbzx-detail-\d+.html" });
-            });
-            detialThread.Start();
+            //Thread detialThread = new Thread(() => {
+            //    sp.DownLoadDetail(new string[] { @"http://www.chinabidding.com/zbzx-detail-\d+.html" });
+            //});
+            //detialThread.Start();
+
+            //string titleXpath = "/html/body/div/div[2]/div[2]/div[1]/div/h2";
+            //string pubTimeXpath = "/html/body/div/div[2]/div[2]/div[1]/div/div[1]";
+            //string contentXpath ="/html/body/div/div[2]/div[2]/div[1]/div/div[2]";
+            var config = new BidSourceConfig
+            {
+                ListUrl = "http://www.chinabidding.com/zbzx.jhtml?method=outlineOne&type=biddingProjectGG&channelId=205"
+                ,
+                DetailUrlPattern = @"http://www.chinabidding.com/zbzx-detail-\d+.html"
+                ,
+                TitleXpath = "row/html/body/div/div[2]/div[2]/div[1]/div/h2"
+                ,
+                ContentXpath = "/html/body/div/div[2]/div[2]/div[1]/div/div[2]"
+                ,
+                PubishDateXpath = "/html/body/div/div[2]/div[2]/div[1]/div/div[1]"
+                ,
+                PubishDatePattern = @"(\d{4}\.\d{2}\.\d{2})"
+            };
+
+            BidSourceConfigBLL configService = new BidSourceConfigBLL();
+            configService.Insert(config);
+
+            var bidList = sp.DownLoadBids(config);
+
+            BidBLL bidService = new BidBLL();
+            foreach(var entity in bidList)
+            {
+                bidService.Insert(entity);
+            }
+
+            bidService.CreateLuceneIndex(bidList);
 
             Console.ReadKey();
         }

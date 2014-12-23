@@ -9,26 +9,25 @@ namespace Pathrough.DAL
 {
     public class DALBase<T> : IDALBase<T> where T : class
     {
-        protected IDALBase<T> dalActive;
 
-        public bool Insert(T entity)
+        public virtual void Insert(T entity)
         {
-            return dalActive.Insert(entity);
+            throw new NotImplementedException();
         }
 
-        public bool Update(T entity)
+        public virtual void Update(T entity)
         {
-            return dalActive.Update(entity);
+            throw new NotImplementedException();
         }
 
-        public bool Delete(T entity)
+        public virtual void Delete(T entity)
         {
-            return dalActive.Delete(entity);
+            throw new NotImplementedException();
         }
 
-        public T Query(int ID)
+        public virtual T Query(long ID)
         {
-            return dalActive.Query(ID);
+            throw new NotImplementedException();
         }
     }
 }

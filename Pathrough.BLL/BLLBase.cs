@@ -13,5 +13,10 @@ namespace Pathrough.BLL
         /// 数据库接口
         /// </summary>
         protected IDALBase<T> dalService;
+
+        public void Insert(T entity)
+        {
+            dalService.Insert(entity);
+        }
     }
 }

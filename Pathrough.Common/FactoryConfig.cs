@@ -15,8 +15,10 @@ namespace Pathrough.Common
             {
                 return new ConfigEntity()
                 {
-                    AssemblyPath = ConfigurationManager.AppSettings["AssemblyPath"],
-                    ClassName = ConfigurationManager.AppSettings["ClassName"]
+                    //AssemblyPath = ConfigurationManager.AppSettings["AssemblyPath"],
+                    //ClassName = ConfigurationManager.AppSettings["ClassName"]
+                    AssemblyPath = "Pathrough.EF",
+                    ClassName = "BidDAL"
                 };
             }
         }
