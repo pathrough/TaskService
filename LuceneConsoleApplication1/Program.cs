@@ -27,6 +27,7 @@ namespace LuceneConsoleApplication1
             //    , new string[] { @"http://www.chinabidding.com/zbzx-detail-\d+.html" });
 
             BidWebsiteSpider sp = new BidWebsiteSpider();
+            //kdk
             //Thread listThread = new Thread(
             //    () => {
             //    sp.LoadListUrlQueue("http://www.chinabidding.com/zbzx.jhtml?method=outlineOne&type=biddingProjectGG&channelId=205"
