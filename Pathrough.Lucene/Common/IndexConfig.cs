@@ -12,7 +12,7 @@ namespace Pathrough.LuceneSE.Common
         {
             get
             {
-                return @"E:\IndexData";
+                return @"C:\IndexData";
             }
 
     }

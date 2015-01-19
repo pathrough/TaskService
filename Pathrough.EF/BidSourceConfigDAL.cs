@@ -14,5 +14,10 @@ namespace Pathrough.EF
             _Context.BidSourceConfigs.Add(entity);
             _Context.SaveChanges();
         }
+
+        public List<BidSourceConfig> GetAll()
+        {
+            return  _Context.BidSourceConfigs.ToList();
+        }
     }
 }

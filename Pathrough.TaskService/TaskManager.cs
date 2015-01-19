@@ -36,7 +36,7 @@ namespace Pathrough.TaskService
         }
         List<TaskBase> GetTaskList()
         {
-            return new List<TaskBase> { new NewsEmailRemindTask()};
+            return new List<TaskBase> { new BidSourceAccessTask() };
         }
 
     }

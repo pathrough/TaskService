@@ -20,57 +20,43 @@ namespace LuceneConsoleApplication1
 
         static void Main(string[] args)
         {
-            //var result = BidSearchEngine.Current.SearchContent("工程");
-
-            //DownloadWebsite("http://www.chinabidding.com/zbzx.jhtml?method=outlineOne&type=biddingProjectGG&channelId=205"
-            //    , new string[] { @"http://www.chinabidding.com/zbzx.jhtml\?.+" }
-            //    , new string[] { @"http://www.chinabidding.com/zbzx-detail-\d+.html" });
-
-            BidWebsiteSpider sp = new BidWebsiteSpider();
-            //kdk
-            //Thread listThread = new Thread(
-            //    () => {
-            //    sp.LoadListUrlQueue("http://www.chinabidding.com/zbzx.jhtml?method=outlineOne&type=biddingProjectGG&channelId=205"
-            //        , new string[] { @"http://www.chinabidding.com/zbzx.jhtml\?.+" });
-            //});
-            //listThread.Start();
-
-            //Thread detialThread = new Thread(() => {
-            //    sp.DownLoadDetail(new string[] { @"http://www.chinabidding.com/zbzx-detail-\d+.html" });
-            //});
-            //detialThread.Start();
-
-            //string titleXpath = "/html/body/div/div[2]/div[2]/div[1]/div/h2";
-            //string pubTimeXpath = "/html/body/div/div[2]/div[2]/div[1]/div/div[1]";
-            //string contentXpath ="/html/body/div/div[2]/div[2]/div[1]/div/div[2]";
-            var config = new BidSourceConfig
-            {
-                ListUrl = "http://www.chinabidding.com/zbzx.jhtml?method=outlineOne&type=biddingProjectGG&channelId=205"
-                ,
-                DetailUrlPattern = @"http://www.chinabidding.com/zbzx-detail-\d+.html"
-                ,
-                TitleXpath = "row/html/body/div/div[2]/div[2]/div[1]/div/h2"
-                ,
-                ContentXpath = "/html/body/div/div[2]/div[2]/div[1]/div/div[2]"
-                ,
-                PubishDateXpath = "/html/body/div/div[2]/div[2]/div[1]/div/div[1]"
-                ,
-                PubishDatePattern = @"(\d{4}\.\d{2}\.\d{2})"
-            };
+            //var config = new BidSourceConfig
+            //{
+            //    ListUrl = "http://www.chinabidding.com/zbzx.jhtml?method=outlineOne&type=biddingProjectGG&channelId=205"
+            //    ,
+            //    DetailUrlPattern = @"http://www.chinabidding.com/zbzx-detail-\d+.html"
+            //    ,
+            //    TitleXpath = "/html/body/div/div[2]/div[2]/div[1]/div/h2"
+            //    ,
+            //    ContentXpath = "/html/body/div/div[2]/div[2]/div[1]/div/div[2]"
+            //    ,
+            //    PubishDateXpath = "/html/body/div/div[2]/div[2]/div[1]/div/div[1]"
+            //    ,
+            //    PubishDatePattern = @"(\d{4}\.\d{2}\.\d{2})"
+            //};
 
             BidSourceConfigBLL configService = new BidSourceConfigBLL();
+            var configList = configService.GetAll();
 
-            configService.Insert(config);
-
-            var bidList = sp.DownLoadBids(config);
-
-            BidBLL bidService = new BidBLL();
-            foreach(var entity in bidList)
+            //configService.Insert(config);
+            BidWebsiteSpider sp = new BidWebsiteSpider();
+            foreach (var config in configList)
             {
-                bidService.Insert(entity);
-            }
+                if(config!=null && !string.IsNullOrWhiteSpace(config.ListUrl))
+                {
+                    var bidList = sp.DownLoadBids(config);
 
-            bidService.CreateLuceneIndex(bidList);
+                    BidBLL bidService = new BidBLL();
+                    foreach (var entity in bidList)
+                    {
+                        bidService.Insert(entity);
+                    }
+
+                    bidService.CreateLuceneIndex(bidList);
+                }
+              
+            }
+            
 
             Console.ReadKey();
         }

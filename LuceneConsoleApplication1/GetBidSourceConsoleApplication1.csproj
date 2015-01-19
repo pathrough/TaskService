@@ -4,15 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{83DD654F-9E92-4DD8-A12F-602F5814849D}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{B6FE0A60-7905-4487-8841-E140B006EFB3}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Pathrough.BLL</RootNamespace>
-    <AssemblyName>Pathrough.BLL</AssemblyName>
+    <RootNamespace>LuceneConsoleApplication1</RootNamespace>
+    <AssemblyName>LuceneConsoleApplication1</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,6 +23,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -30,10 +32,29 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.0.2\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.0.2\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="HtmlAgilityPack">
       <HintPath>..\..\Dlls\HtmlAgilityPack.dll</HintPath>
     </Reference>
+    <Reference Include="PanGu, Version=2.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\PanGu.dll</HintPath>
+    </Reference>
+    <Reference Include="PanGu.HighLight, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\PanGu.HighLight.dll</HintPath>
+    </Reference>
+    <Reference Include="PanGu.Lucene.Analyzer, Version=1.3.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\PanGu.Lucene.Analyzer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -42,46 +63,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BidBLL.cs" />
-    <Compile Include="BidSourceConfigBLL.cs" />
-    <Compile Include="BLLBase.cs" />
-    <Compile Include="ExceptionBidSourceConfigBLL.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Spider\BidSpider.cs" />
-    <Compile Include="Spider\SpiderManager.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Pathrough.Common\Pathrough.Common.csproj">
-      <Project>{ef5480ae-30be-48f1-bc36-3c5a74ccd0a1}</Project>
-      <Name>Pathrough.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Pathrough.EF\Pathrough.EF.csproj">
-      <Project>{a7f2a549-fc05-4ecd-b46f-e0b9d2ebebf5}</Project>
-      <Name>Pathrough.EF</Name>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Pathrough.BLL\Pathrough.BLL.csproj">
+      <Project>{83dd654f-9e92-4dd8-a12f-602f5814849d}</Project>
+      <Name>Pathrough.BLL</Name>
     </ProjectReference>
     <ProjectReference Include="..\Pathrough.Entity\Pathrough.Entity.csproj">
       <Project>{7e9dcbae-6e03-4e27-ad55-03a7e5124625}</Project>
       <Name>Pathrough.Entity</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Pathrough.Factory\Pathrough.Factory.csproj">
-      <Project>{24cc401f-7b31-4af9-98fc-f16b8e2876c1}</Project>
-      <Name>Pathrough.Factory</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Pathrough.IDAL\Pathrough.IDAL.csproj">
-      <Project>{463e1114-6674-4412-a7ee-855b06e9595c}</Project>
-      <Name>Pathrough.IDAL</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Pathrough.Lucene\Pathrough.LuceneSE.csproj">
       <Project>{01befb97-fd7f-40f2-b30b-aad9d197eb37}</Project>
       <Name>Pathrough.LuceneSE</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Pathrough.Model\Pathrough.Model.csproj">
-      <Project>{5b69b51d-d5ae-4246-8043-9e6a4add6944}</Project>
-      <Name>Pathrough.Model</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Pathrough.Web\Pathrough.Web.csproj">
-      <Project>{20d3c35c-8c1c-40c7-8a6c-4a06083936bd}</Project>
-      <Name>Pathrough.Web</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

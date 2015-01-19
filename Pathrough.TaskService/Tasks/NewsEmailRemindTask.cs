@@ -14,7 +14,7 @@ namespace Pathrough.TaskService.Tasks
             Console.WriteLine(DateTime.Now.ToString());
         }
 
-        protected override DateTime RunSartTime
+        protected override DateTime RunStartTime
         {
             get 
             {

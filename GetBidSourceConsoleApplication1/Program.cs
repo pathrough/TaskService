@@ -4,9 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LuceneConsoleApplication1
+namespace GetBidSourceConsoleApplication1
 {
-    class ListUrlAccessor
+    class Program
     {
+        static void Main(string[] args)
+        {
+        }
     }
 }

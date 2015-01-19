@@ -1,0 +1,19 @@
+﻿@model Pathrough.Entity.BidSourceConfig
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+<form>
+    <table>
+        <tr><td>ListUrl</td><td><input type="text" name="ListUrl" value="@Model.ListUrl" /> </td></tr>
+        <tr><td>DetailUrlPattern</td><td><input type="text" name="DetailUrlPattern" value="@Model.DetailUrlPattern" /> </td></tr>
+        <tr><td>ContentXpath</td><td><input type="text" name="ContentXpath" value="@Model.ContentXpath" /> </td></tr>
+        <tr><td>TitleXpath</td><td><input type="text" name="TitleXpath" value="@Model.TitleXpath" /> </td></tr>
+        <tr><td>PubishDateXpath</td><td><input type="text" name="PubishDateXpath" value="@Model.PubishDateXpath" /> </td></tr>
+        <tr><td>PubishDatePattern</td><td><input type="text" name="PubishDatePattern" value="@Model.PubishDatePattern" /> </td></tr>
+        <tr><td>AreaName</td><td><input type="text" name="AreaName" value="@Model.AreaName" /> </td></tr>
+    </table>
+    <input type="submit" value="提交" />
+</form>

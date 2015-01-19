@@ -21,7 +21,8 @@ namespace Pathrough.BLL
         }
         public List<BidSourceConfig> GetAll()
         {
-            throw new NotImplementedException();
+            BidSourceConfigDAL dal = this.dalService as BidSourceConfigDAL;
+            return  dal.GetAll();
         }
     }
 }

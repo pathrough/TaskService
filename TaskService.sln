@@ -31,7 +31,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataAccess", "DataAccess", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pathrough.ADO", "Pathrough.ADO\Pathrough.ADO.csproj", "{6AE070E1-9C63-498B-81B9-15672335E034}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LuceneConsoleApplication1", "LuceneConsoleApplication1\LuceneConsoleApplication1.csproj", "{B6FE0A60-7905-4487-8841-E140B006EFB3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GetBidSourceConsoleApplication1", "LuceneConsoleApplication1\GetBidSourceConsoleApplication1.csproj", "{B6FE0A60-7905-4487-8841-E140B006EFB3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pathrough.LuceneSE", "Pathrough.Lucene\Pathrough.LuceneSE.csproj", "{01BEFB97-FD7F-40F2-B30B-AAD9D197EB37}"
 EndProject

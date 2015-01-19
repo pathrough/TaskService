@@ -19,17 +19,7 @@ namespace Pathrough.BLL.Spider
         public List<Bid> DownLoadBids(BidSourceConfig config)
         {
             var exampleDoc = new WebPageLoader().GetPage("http://www.chinabidding.com/zbzx-detail-224318166.html");
-            //string eTitle = "<h2>链轮_RS25-13齿</h2>";
-            //var titleXpath = GetXpath(eTitle, exampleDoc);
-            //string gTitle = exampleDoc.DocumentNode.SelectSingleNode(titleXpath).InnerText;
-
-            //string ePubTime = "<div class=\"gg-xl-fbsj\">来源：中国国际招标网&nbsp;&nbsp;&nbsp;&nbsp; 发布时间：2014.12.27</div>";
-            //var pubTimeXpath = GetXpath(ePubTime, exampleDoc);
-            //string titleXpath = "/html/body/div/div[2]/div[2]/div[1]/div/h2";
-            //string pubTimeXpath = "/html/body/div/div[2]/div[2]/div[1]/div/div[1]";
-            //string contentXpath ="/html/body/div/div[2]/div[2]/div[1]/div/div[2]";
-            //string gContent = exampleDoc.DocumentNode.SelectSingleNode(contentXpath).InnerText;
-
+          
             string listUrl = config.ListUrl;
             List<Bid> bidList = new List<Bid>();
             string domain = new Url(listUrl).DomainUrl;
@@ -42,6 +32,7 @@ namespace Pathrough.BLL.Spider
                 if (!string.IsNullOrWhiteSpace(text))
                 {
                     var bid = Bid.GetDefaultEntity();
+                    bid.BidSourceUrl = item;
                     try
                     {
                         bid.BidTitle = doc.DocumentNode.SelectSingleNode(config.TitleXpath).InnerText;
@@ -80,6 +71,7 @@ namespace Pathrough.BLL.Spider
                         ebsc.Insert(new ExceptionBidSourceConfig { Config = config, Msg = "BidContent，根据xPath获取时失败！" });
                         throw e;
                     }
+                    
                     bidList.Add(bid);
                 }
             }

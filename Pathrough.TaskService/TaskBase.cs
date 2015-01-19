@@ -25,8 +25,9 @@ namespace Pathrough.TaskService
                 }
                 else
                 {
+                    //Thread.Sleep(1000);//一秒，防止立即运行的任务RunStartTime < now 为false
                     var now = DateTime.Now;
-                    if (RunEnabled && RunSartTime < now && RunEndTime > now)
+                    if (RunEnabled && RunStartTime < now && RunEndTime > now)
                     {
                         Console.WriteLine("Run:" + this.GetType());
                         Run();
@@ -41,7 +42,7 @@ namespace Pathrough.TaskService
             };
         }
         protected abstract void Run();
-        protected abstract DateTime RunSartTime { get; }
+        protected abstract DateTime RunStartTime { get; }
         protected abstract DateTime RunEndTime { get; }
         public abstract int RunPeriod { get; }
         public bool RunEnabled { get; set; }
