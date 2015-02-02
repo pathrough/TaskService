@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IBidDAL.cs" />
+    <Compile Include="IBidSourceConfigDAL.cs" />
     <Compile Include="IDALBase.cs">
       <SubType>Code</SubType>
     </Compile>

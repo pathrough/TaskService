@@ -22,7 +22,6 @@ namespace TaskService
                 
                 
             //};
-            string instance = "精算和风险管理 有很大的不同。";
         }
     }
 }

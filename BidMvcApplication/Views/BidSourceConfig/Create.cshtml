@@ -7,12 +7,12 @@
 <h2>Create</h2>
 <form>
     <table>
-        <tr><td>ListUrl</td><td><input type="text" name="ListUrl" value="@Model.ListUrl" /> </td></tr>
-        <tr><td>DetailUrlPattern</td><td><input type="text" name="DetailUrlPattern" value="@Model.DetailUrlPattern" /> </td></tr>
-        <tr><td>ContentXpath</td><td><input type="text" name="ContentXpath" value="@Model.ContentXpath" /> </td></tr>
-        <tr><td>TitleXpath</td><td><input type="text" name="TitleXpath" value="@Model.TitleXpath" /> </td></tr>
+        <tr><td>ListUrl</td><td><input type="text" name="ListUrl" value="@Model.ListUrl" /> http://www.chinabidding.com/zbzx.jhtml?method=outlineOne&type=biddingProjectGG&channelId=205</td></tr>
+        <tr><td>DetailUrlPattern</td><td><input type="text" name="DetailUrlPattern" value="@Model.DetailUrlPattern" />http://www.chinabidding.com/zbzx-detail-\d+.html </td></tr>
+        <tr><td>ContentXpath</td><td><input type="text" name="ContentXpath" value="@Model.ContentXpath" /> /html/body/div/div[2]/div[2]/div[1]/div/div[2]</td></tr>
+        <tr><td>TitleXpath</td><td><input type="text" name="TitleXpath" value="@Model.TitleXpath" />/html/body/div/div[2]/div[2]/div[1]/div/h2 </td></tr>
         <tr><td>PubishDateXpath</td><td><input type="text" name="PubishDateXpath" value="@Model.PubishDateXpath" /> </td></tr>
-        <tr><td>PubishDatePattern</td><td><input type="text" name="PubishDatePattern" value="@Model.PubishDatePattern" /> </td></tr>
+        <tr><td>PubishDatePattern</td><td><input type="text" name="PubishDatePattern" value="@Model.PubishDatePattern" />(\d{4}\.\d{2}\.\d{2}) </td></tr>
         <tr><td>AreaName</td><td><input type="text" name="AreaName" value="@Model.AreaName" /> </td></tr>
     </table>
     <input type="submit" value="提交" />

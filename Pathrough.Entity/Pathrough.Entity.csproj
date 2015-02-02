@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Area.cs" />
     <Compile Include="Bid.cs" />
     <Compile Include="BidSourceConfig.cs" />
     <Compile Include="ExceptionBidSourceConfig.cs" />

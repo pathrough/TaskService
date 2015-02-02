@@ -48,9 +48,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AreaDAL.cs" />
     <Compile Include="BidContext.cs" />
     <Compile Include="BidDAL.cs" />
     <Compile Include="BidSourceConfigDAL.cs" />
+    <Compile Include="Common\QueryableExt.cs" />
     <Compile Include="DALBase.cs" />
     <Compile Include="ExceptionBidSourceConfigDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Pathrough.EF
 {
-    public class DALBase<T> : IDALBase<T> where T : class
+    public abstract class DALBase<T> : IDALBase<T> where T : class
     {
         protected BidContext _Context;
         public DALBase()

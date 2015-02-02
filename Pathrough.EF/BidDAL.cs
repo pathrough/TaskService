@@ -8,11 +8,10 @@ using System.Threading.Tasks;
 
 namespace Pathrough.EF
 {
-    public class BidDAL : DALBase<Bid>,IBidDAL  //: DALBase<Bid>, IBidDAL
+    public class BidDAL : DALBase<Bid>,IBidDAL 
     {
         public BidDAL()
         {
-            _Context = new BidContext();
         }
         public override void Insert(Bid entity)
         {

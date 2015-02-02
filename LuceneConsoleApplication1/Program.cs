@@ -20,43 +20,38 @@ namespace LuceneConsoleApplication1
 
         static void Main(string[] args)
         {
-            //var config = new BidSourceConfig
-            //{
-            //    ListUrl = "http://www.chinabidding.com/zbzx.jhtml?method=outlineOne&type=biddingProjectGG&channelId=205"
-            //    ,
-            //    DetailUrlPattern = @"http://www.chinabidding.com/zbzx-detail-\d+.html"
-            //    ,
-            //    TitleXpath = "/html/body/div/div[2]/div[2]/div[1]/div/h2"
-            //    ,
-            //    ContentXpath = "/html/body/div/div[2]/div[2]/div[1]/div/div[2]"
-            //    ,
-            //    PubishDateXpath = "/html/body/div/div[2]/div[2]/div[1]/div/div[1]"
-            //    ,
-            //    PubishDatePattern = @"(\d{4}\.\d{2}\.\d{2})"
-            //};
-
-            BidSourceConfigBLL configService = new BidSourceConfigBLL();
-            var configList = configService.GetAll();
-
-            //configService.Insert(config);
-            BidWebsiteSpider sp = new BidWebsiteSpider();
-            foreach (var config in configList)
-            {
-                if(config!=null && !string.IsNullOrWhiteSpace(config.ListUrl))
+            IBidSourceConfigBLL configService = new BidSourceConfigBLL();
+            int pageCount, recordCount;
+            int pageIndex=1;
+            do{
+                var configList = configService.GetList(null, pageIndex, 20, out pageCount, out recordCount);
+                foreach (var config in configList)
                 {
-                    var bidList = sp.DownLoadBids(config);
-
-                    BidBLL bidService = new BidBLL();
-                    foreach (var entity in bidList)
+                    if (config != null && !string.IsNullOrWhiteSpace(config.ListUrl))
                     {
-                        bidService.Insert(entity);
+                        //ThreadPool.QueueUserWorkItem(d => {
+                        //    BidWebsiteSpider sp = new BidWebsiteSpider();
+                        //    var bidList = sp.DownLoadBids((BidSourceConfig)d);
+                        //    BidBLL bidService = new BidBLL();
+                        //    foreach (var entity in bidList)
+                        //    {
+                        //        bidService.Insert(entity);
+                        //    }
+                        //}, config);      
+                        BidWebsiteSpider sp = new BidWebsiteSpider();
+                        var bidList = sp.DownLoadBids(config);
+                        BidBLL bidService = new BidBLL();
+                        foreach (var entity in bidList)
+                        {
+                            bidService.Insert(entity);
+                        }
+
+                        //bidService.CreateLuceneIndex(bidList);
                     }
 
-                    bidService.CreateLuceneIndex(bidList);
                 }
-              
             }
-            
+            while (pageIndex>pageCount);
 
             Console.ReadKey();
         }
@@ -284,3 +279,13 @@ public class UrlHelper
     }
 
 }
+
+
+
+
+
+
+
+
+
+

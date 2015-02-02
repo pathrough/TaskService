@@ -7,16 +7,20 @@ using System.Threading.Tasks;
 
 namespace Pathrough.BLL
 {
-    public class BLLBase<T> where T : class
+    public abstract class BLLBase<T> where T : class
     {
+        public BLLBase(IDALBase<T> dal)
+        {
+            this.dalService = dal;
+        }
         /// <summary>
         /// 数据库接口
         /// </summary>
         protected IDALBase<T> dalService;
 
-        public void Insert(T entity)
-        {
-            dalService.Insert(entity);
-        }
+        //public void Insert(T entity)
+        //{
+        //    dalService.Insert(entity);
+        //}
     }
 }

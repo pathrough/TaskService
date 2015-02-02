@@ -18,62 +18,75 @@ namespace Pathrough.BLL.Spider
     {
         public List<Bid> DownLoadBids(BidSourceConfig config)
         {
-            var exampleDoc = new WebPageLoader().GetPage("http://www.chinabidding.com/zbzx-detail-224318166.html");
+            //var exampleDoc = new WebPageLoader().GetPage("http://www.chinabidding.com/zbzx-detail-224318166.html");
           
             string listUrl = config.ListUrl;
             List<Bid> bidList = new List<Bid>();
             string domain = new Url(listUrl).DomainUrl;
             var list = GetDetailUrlListByUrl(listUrl, config.DetailUrlPattern.Split('|'), domain);
-            foreach (var item in list)
+            if(list!=null && list.Count>0)
             {
-                Console.WriteLine(item);
-                HtmlDocument doc = new WebPageLoader().GetPage(item);
-                var text = doc.DocumentNode.InnerText;
-                if (!string.IsNullOrWhiteSpace(text))
+                foreach (var item in list)
                 {
-                    var bid = Bid.GetDefaultEntity();
-                    bid.BidSourceUrl = item;
-                    try
+                    Console.WriteLine(item);
+                    HtmlDocument doc = new WebPageLoader().GetPage(item);
+                    var text = doc.DocumentNode.InnerText;
+                    if (!string.IsNullOrWhiteSpace(text))
                     {
-                        bid.BidTitle = doc.DocumentNode.SelectSingleNode(config.TitleXpath).InnerText;
+                        var bid = Bid.GetDefaultEntity();
+                        bid.BidSourceUrl = item;
+                        try
+                        {
+                            bid.BidTitle = doc.DocumentNode.SelectSingleNode(config.TitleXpath).InnerText;
+                        }
+                        catch (Exception e)
+                        {
+                            ExceptionBidSourceConfigBLL ebsc = new ExceptionBidSourceConfigBLL();
+                            ebsc.Insert(new ExceptionBidSourceConfig { Config = config, Msg = "BidTitle，根据xPath获取时失败！", LogDate = DateTime.Now });
+                            throw e;
+                        }
+                        string strPubTime = "";
+                        try
+                        {
+                            strPubTime = doc.DocumentNode.SelectSingleNode(config.PubishDateXpath).InnerText;
+                        }
+                        catch (Exception e)
+                        {
+                            //todo:记录获取失败
+                            ExceptionBidSourceConfigBLL ebsc = new ExceptionBidSourceConfigBLL();
+                            ebsc.Insert(new ExceptionBidSourceConfig { Config = config, Msg = "BidPublishDate，根据xPath获取时失败！", LogDate = DateTime.Now });
+                            throw e;
+                        }
+                        var m = Regex.Match(strPubTime, config.PubishDatePattern);
+                        if (m.Success)
+                        {
+                            bid.BidPublishDate = GetDateTime(m.Groups[1].Value);
+                        }
+                        else
+                        {
+                            ExceptionBidSourceConfigBLL ebsc = new ExceptionBidSourceConfigBLL();
+                            ebsc.Insert(new ExceptionBidSourceConfig { Config = config, Msg = "BidPublishDate，转换失败！", LogDate = DateTime.Now });
+                        }
+                        try
+                        {
+                            bid.BidContent = doc.DocumentNode.SelectSingleNode(config.ContentXpath).InnerText;
+                        }
+                        catch (Exception e)
+                        {
+                            //todo:记录获取失败
+                            ExceptionBidSourceConfigBLL ebsc = new ExceptionBidSourceConfigBLL();
+                            ebsc.Insert(new ExceptionBidSourceConfig { Config = config, Msg = "BidContent，根据xPath获取时失败！", LogDate = DateTime.Now });
+                            throw e;
+                        }
+
+                        bidList.Add(bid);
                     }
-                    catch (Exception e)
-                    {
-                        ExceptionBidSourceConfigBLL ebsc = new ExceptionBidSourceConfigBLL();
-                        ebsc.Insert(new ExceptionBidSourceConfig { Config = config, Msg = "BidTitle，根据xPath获取时失败！" });
-                        throw e;
-                    }
-                    string strPubTime = "";
-                    try
-                    {
-                        strPubTime = doc.DocumentNode.SelectSingleNode(config.PubishDateXpath).InnerText;
-                    }
-                    catch (Exception e)
-                    {
-                        //todo:记录获取失败
-                        ExceptionBidSourceConfigBLL ebsc = new ExceptionBidSourceConfigBLL();
-                        ebsc.Insert(new ExceptionBidSourceConfig { Config = config, Msg = "BidPublishDate，根据xPath获取时失败！" });
-                        throw e;
-                    }
-                    var m = Regex.Match(strPubTime, config.PubishDatePattern);
-                    if (m.Success)
-                    {
-                        bid.BidPublishDate = GetDateTime(m.Groups[1].Value);
-                    }
-                    try
-                    {
-                        bid.BidContent = doc.DocumentNode.SelectSingleNode(config.ContentXpath).InnerText;
-                    }
-                    catch (Exception e)
-                    {
-                        //todo:记录获取失败
-                        ExceptionBidSourceConfigBLL ebsc = new ExceptionBidSourceConfigBLL();
-                        ebsc.Insert(new ExceptionBidSourceConfig { Config = config, Msg = "BidContent，根据xPath获取时失败！" });
-                        throw e;
-                    }
-                    
-                    bidList.Add(bid);
                 }
+            }
+            else
+            {
+                ExceptionBidSourceConfigBLL ebsc = new ExceptionBidSourceConfigBLL();
+                ebsc.Insert(new ExceptionBidSourceConfig { Config = config, Msg = "无法获取列表",LogDate=DateTime.Now });
             }
             return bidList;
         }
@@ -237,9 +250,9 @@ namespace Pathrough.BLL.Spider
 
         private List<string> GetUrlListByUrl(string urlitem, Func<string, string> GetCompleteUrl, Func<string, bool> UrlIsMatch)
         {
-            string html = GetWebPageContent(urlitem);
-            HtmlDocument doc = new HtmlDocument();
-            doc.LoadHtml(html);
+            //string html = new WebPageLoader().GetPage(item)
+            HtmlDocument doc = new WebPageLoader().GetPage(urlitem);
+            //doc.LoadHtml(html);
 
             //列表页，url分析
             List<string> urlList = new List<string>();
@@ -268,12 +281,12 @@ namespace Pathrough.BLL.Spider
 
         private List<string> GetDetailUrlListByUrl(string urlitem, string[] detailPattern, string domain)
         {
-            return GetUrlListByUrl(urlitem, (relativeUrl) =>
+            return GetUrlListByUrl(urlitem,(d)=>d /*(relativeUrl) =>
             {
                 return Url.GetObsluteUrl(urlitem, relativeUrl);
-            }, (d) =>
+            }*/, (d) =>
             {
-                return string.IsNullOrWhiteSpace(d) == false && d.StartsWith(domain)
+                return string.IsNullOrWhiteSpace(d) == false
                     && IsMatchOne(d, detailPattern);
             });
         }

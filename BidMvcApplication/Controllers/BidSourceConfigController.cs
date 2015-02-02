@@ -8,105 +8,32 @@ using System.Web.Mvc;
 
 namespace BidMvcApplication.Controllers
 {
-    public class BidSourceConfigController : Controller
+    public class BidSourceConfigController : Controller,IInsertHandler
     {
-        //
-        // GET: /BidSourceConfig/
-
-        public ActionResult Index()
+        IBidSourceConfigBLL bidSourceConfigBLL;
+        public BidSourceConfigController()
         {
-            return View();
+            bidSourceConfigBLL = new BidSourceConfigBLL();
         }
-
-        //
-        // GET: /BidSourceConfig/Details/5
-
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        //
-        // GET: /BidSourceConfig/Create
-
         public ActionResult Create(BidSourceConfig entity)
         {
-            if (string.IsNullOrWhiteSpace(entity.ListUrl))
+            if (!string.IsNullOrWhiteSpace(entity.ListUrl))
             {
-                BidSourceConfigBLL configService = new BidSourceConfigBLL();
-                configService.Insert(entity);
+                bidSourceConfigBLL.Insert(entity, this);
             }
             return View(entity);
-        }
-
-        //
-        // POST: /BidSourceConfig/Create
-
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        }      
+        
+        public ActionResult List(string areaNo,int pageIndex,int pageSize)
         {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        //
-        // GET: /BidSourceConfig/Edit/5
-
-        public ActionResult Edit(int id)
-        {
+            int pageCount, recordCount;
+            bidSourceConfigBLL.GetList(areaNo, pageIndex, pageSize, out pageCount, out recordCount);
             return View();
         }
 
-        //
-        // POST: /BidSourceConfig/Edit/5
-
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public void ParameterInvalid()
         {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        //
-        // GET: /BidSourceConfig/Delete/5
-
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        //
-        // POST: /BidSourceConfig/Delete/5
-
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            
         }
     }
 }

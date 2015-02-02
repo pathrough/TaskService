@@ -13,6 +13,7 @@ namespace Pathrough.EF
         public DbSet<Bid> Bids { get; set; }
         public DbSet<BidSourceConfig> BidSourceConfigs { get; set; }
         public DbSet<ExceptionBidSourceConfig> ExceptionBidSourceConfigs { get; set; }
+        public DbSet<Area> Areas { get; set; }
         public BidContext():base("name=BidContext")
         {
 
