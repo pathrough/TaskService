@@ -29,7 +29,8 @@ namespace LuceneConsoleApplication1
                 {
                     if (config != null && !string.IsNullOrWhiteSpace(config.ListUrl))
                     {
-                        //ThreadPool.QueueUserWorkItem(d => {
+                        //ThreadPool.QueueUserWorkItem(d =>
+                        //{
                         //    BidWebsiteSpider sp = new BidWebsiteSpider();
                         //    var bidList = sp.DownLoadBids((BidSourceConfig)d);
                         //    BidBLL bidService = new BidBLL();
@@ -38,6 +39,7 @@ namespace LuceneConsoleApplication1
                         //        bidService.Insert(entity);
                         //    }
                         //}, config);      
+
                         BidWebsiteSpider sp = new BidWebsiteSpider();
                         var bidList = sp.DownLoadBids(config);
                         BidBLL bidService = new BidBLL();
