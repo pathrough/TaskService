@@ -19,7 +19,10 @@ namespace Pathrough.Web
             {
                 try
                 {
-                    return url.Split(new string[] { "://" }, StringSplitOptions.None)[0] + "://" + new Uri(url).Host;
+                    string[] parts = url.Split(new string[] { "://" }, StringSplitOptions.None);
+                    string[] parts1 = parts[1].Split(new string[] { "/" }, StringSplitOptions.None);
+                    var mainUrl = parts[0] + "://" +parts1[0];
+                    return mainUrl;
                 }
                 catch
                 {

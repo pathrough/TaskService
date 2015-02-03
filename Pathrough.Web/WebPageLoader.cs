@@ -48,7 +48,7 @@ namespace Pathrough.Web
         }
         void FixUrl(HtmlNode node, string currentUrl)
         {
-            string homeUrl = new Url(currentUrl).DomainUrl;
+            //string homeUrl = new Url(currentUrl).DomainUrl;
             if (node.Name == "a" || node.Name == "img")
             {
                 foreach (var item in node.Attributes)
@@ -61,7 +61,7 @@ namespace Pathrough.Web
             }
             foreach (var item in node.ChildNodes)
             {
-                FixUrl(item, homeUrl);
+                FixUrl(item, currentUrl);
             }
         }
         static void GetEncoding(HtmlNode node, ref string encoding)

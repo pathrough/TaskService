@@ -15,22 +15,17 @@ namespace Pathrough.BLL
     }
     public interface IBidSourceConfigBLL
     {
-        List<BidSourceConfig> GetAll();
         void Insert(BidSourceConfig entity, IInsertHandler handler);
 
         List<BidSourceConfig> GetList(string areaNo,int pageIndex,int pageSize,out int pageCount,out int recordCount);
     }
     public class BidSourceConfigBLL : BLLBase<BidSourceConfig>, IBidSourceConfigBLL
     {
+        IBidSourceConfigDAL dal;
         public BidSourceConfigBLL()
             : base(new BidSourceConfigDAL())
         {
-            //base.dalService = new BidSourceConfigDAL();
-        }
-        public List<BidSourceConfig> GetAll()
-        {
-            BidSourceConfigDAL dal = this.dalService as BidSourceConfigDAL;
-            return dal.GetAll();
+            dal = (IBidSourceConfigDAL)dalService;
         }
 
         public void Insert(BidSourceConfig entity,IInsertHandler handler)
@@ -46,14 +41,30 @@ namespace Pathrough.BLL
             {
                 handler.ParameterInvalid();
                 return;
-            }           
-            dalService.Insert(entity);
+            }
+            var existEntity = dal.GetEntityByUrl(entity.ListUrl);
+            if (existEntity==null)
+            {
+                dal.Insert(entity);
+            }        
+            else
+            {
+                existEntity.ListUrl = entity.ListUrl;
+                existEntity.DetailUrlPattern = entity.DetailUrlPattern;
+                existEntity.TitleXpath = entity.TitleXpath;
+                existEntity.ContentXpath = entity.ContentXpath;
+                existEntity.PubishDateXpath = entity.PubishDateXpath;
+                existEntity.PubishDatePattern = entity.PubishDatePattern;
+                existEntity.AreaName = entity.AreaName;
+                existEntity.AreaNo = entity.AreaNo;
+                dal.Update(existEntity);
+            }
         }
 
 
         public List<BidSourceConfig> GetList(string areaNo,int pageIndex,int pageSize,out int pageCount,out int recordCount)
         {
-            return (dalService as IBidSourceConfigDAL).GetList(areaNo, pageIndex, pageSize, out pageCount, out recordCount);
+            return dal.GetList(areaNo, pageIndex, pageSize, out pageCount, out recordCount);
         }
     }
 }

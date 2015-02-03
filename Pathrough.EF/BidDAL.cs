@@ -23,5 +23,10 @@ namespace Pathrough.EF
         {
             _Context.SaveChanges();
         }
+
+        public Bid GetEntityByUrl(string url)
+        {
+            return _Context.Bids.FirstOrDefault(d=>d.BidSourceUrl==url);
+        }
     }
 }

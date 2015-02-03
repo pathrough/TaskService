@@ -15,9 +15,11 @@ namespace Pathrough.BLL
 {
     public class BidBLL : BLLBase<Bid>//,IOrderBLL
     {
+        IBidDAL bidDal;
         public BidBLL()
             : base(new BidDAL())
         {
+            bidDal = (IBidDAL)this.dalService;
             ////初始化dal服务
             //this.dalService = DALFactory.CreateOrder<IBidDAL>
             //    (FactoryConfig.Bid.AssemblyPath, FactoryConfig.Bid.ClassName);
@@ -25,7 +27,11 @@ namespace Pathrough.BLL
         }
         public void Insert(Bid bid)
         {
-            dalService.Insert(bid);
+            var entity = bidDal.GetEntityByUrl(bid.BidSourceUrl);
+            if(entity==null)
+            {
+                bidDal.Insert(bid);
+            }            
         }
 
         //#region IOrderDAL的专用方法

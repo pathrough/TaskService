@@ -11,18 +11,18 @@ namespace Pathrough.BLL.Spider
     {
         public void Run()
         {
-            BidSourceConfigBLL bsc = new BidSourceConfigBLL();
-            var configList = bsc.GetAll();
-            foreach(var config in configList)
-            {
-                BidWebsiteSpider sp = new BidWebsiteSpider();
+            //BidSourceConfigBLL bsc = new BidSourceConfigBLL();
+            //var configList = bsc.GetAll();
+            //foreach(var config in configList)
+            //{
+            //    BidWebsiteSpider sp = new BidWebsiteSpider();
 
-                Thread detialThread = new Thread(() =>
-                {
-                    sp.DownLoadBids(config);
-                });
-                detialThread.Start();
-            }           
+            //    Thread detialThread = new Thread(() =>
+            //    {
+            //        sp.DownLoadBids(config);
+            //    });
+            //    detialThread.Start();
+            //}           
         }
     }
 }
