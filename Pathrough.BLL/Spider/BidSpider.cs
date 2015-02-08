@@ -18,13 +18,14 @@ namespace Pathrough.BLL.Spider
     {
         public List<Bid> DownLoadBids(BidSourceConfig config)
         {
-          
+
             string listUrl = config.ListUrl;
             List<Bid> bidList = new List<Bid>();
             string domain = new Url(listUrl).DomainUrl;
-            var list = GetDetailUrlListByUrl(listUrl, config.DetailUrlPattern.Split(new string[]{"-/-"},StringSplitOptions.RemoveEmptyEntries));
+            var list = GetDetailUrlListByUrl(listUrl, config.DetailUrlPattern.Split(new string[] { "-/-" }, StringSplitOptions.RemoveEmptyEntries));
             ExceptionBidSourceConfigBLL ebsc = new ExceptionBidSourceConfigBLL();
-            if(list!=null && list.Count>0)
+            bool isRecordException = false;
+            if (list != null && list.Count > 0)
             {
                 foreach (var item in list)
                 {
@@ -44,8 +45,12 @@ namespace Pathrough.BLL.Spider
                             }
                             catch (Exception e)
                             {
+                                if (!isRecordException)
+                                {
+                                    ebsc.Insert(new ExceptionBidSourceConfig { Config_BscID = config.BscID, Msg = "BidTitle，根据xPath获取时失败！", LogDate = DateTime.Now });
+                                    isRecordException = true;
+                                }
 
-                                ebsc.Insert(new ExceptionBidSourceConfig { Config_BscID = config.BscID, Msg = "BidTitle，根据xPath获取时失败！", LogDate = DateTime.Now });
                                 throw e;
                             }
                             string strPubTime = "";
@@ -55,8 +60,12 @@ namespace Pathrough.BLL.Spider
                             }
                             catch (Exception e)
                             {
-                                //todo:记录获取失败
-                                ebsc.Insert(new ExceptionBidSourceConfig { Config_BscID = config.BscID, Msg = "BidPublishDate，根据xPath获取时失败！", LogDate = DateTime.Now });
+                                if (!isRecordException)
+                                {
+                                    //todo:记录获取失败
+                                    ebsc.Insert(new ExceptionBidSourceConfig { Config_BscID = config.BscID, Msg = "BidPublishDate，根据xPath获取时失败！", LogDate = DateTime.Now });
+                                    isRecordException = true;
+                                }
                                 throw e;
                             }
                             var m = Regex.Match(strPubTime, config.PubishDatePattern);
@@ -66,7 +75,11 @@ namespace Pathrough.BLL.Spider
                             }
                             else
                             {
-                                ebsc.Insert(new ExceptionBidSourceConfig { Config_BscID = config.BscID, Msg = "BidPublishDate，转换失败！", LogDate = DateTime.Now });
+                                if (!isRecordException)
+                                {
+                                    ebsc.Insert(new ExceptionBidSourceConfig { Config_BscID = config.BscID, Msg = "BidPublishDate，转换失败！", LogDate = DateTime.Now });
+                                    isRecordException = true;
+                                }
                             }
                             try
                             {
@@ -74,22 +87,30 @@ namespace Pathrough.BLL.Spider
                             }
                             catch (Exception e)
                             {
-                                //todo:记录获取失败
-                                ebsc.Insert(new ExceptionBidSourceConfig { Config_BscID = config.BscID, Msg = "BidContent，根据xPath获取时失败！", LogDate = DateTime.Now });
+                                if (!isRecordException)
+                                {
+                                    //todo:记录获取失败
+                                    ebsc.Insert(new ExceptionBidSourceConfig { Config_BscID = config.BscID, Msg = "BidContent，根据xPath获取时失败！", LogDate = DateTime.Now });
+                                    isRecordException = true;
+                                }
                                 throw e;
                             }
 
                             bidList.Add(bid);
                         }
                     }
-                    catch 
+                    catch
                     {
                     }
                 }
             }
             else
             {
-                ebsc.Insert(new ExceptionBidSourceConfig { Config_BscID = config.BscID, Msg = "无法获取列表", LogDate = DateTime.Now });
+                if (!isRecordException)
+                {
+                    ebsc.Insert(new ExceptionBidSourceConfig { Config_BscID = config.BscID, Msg = "无法获取列表", LogDate = DateTime.Now });
+                    isRecordException = true;
+                }
             }
             return bidList;
         }
@@ -139,7 +160,7 @@ namespace Pathrough.BLL.Spider
             };
             return "";
         }
-       
+
         static bool IsMatchOne(string input, string[] patternList)
         {
             bool match = false;
@@ -152,7 +173,7 @@ namespace Pathrough.BLL.Spider
                 }
             }
             return match;
-        }     
+        }
 
         private List<string> GetUrlListByUrl(string urlitem, Func<string, string> GetCompleteUrl, Func<string, bool> UrlIsMatch)
         {
@@ -183,7 +204,7 @@ namespace Pathrough.BLL.Spider
             return urlList;
         }
 
-        private List<string> GetUrlListByUrl(string urlitem,string[] detailPatterns)
+        private List<string> GetUrlListByUrl(string urlitem, string[] detailPatterns)
         {
             HtmlDocument doc = new WebPageLoader().GetPage(urlitem);
 
@@ -211,7 +232,7 @@ namespace Pathrough.BLL.Spider
 
         private List<string> GetDetailUrlListByUrl(string urlitem, string[] detailPattern, string domain)
         {
-            return GetUrlListByUrl(urlitem,(d)=>d /*(relativeUrl) =>
+            return GetUrlListByUrl(urlitem, (d) => d /*(relativeUrl) =>
             {
                 return Url.GetObsluteUrl(urlitem, relativeUrl);
             }*/, (d) =>
@@ -220,7 +241,7 @@ namespace Pathrough.BLL.Spider
                     && IsMatchOne(d, detailPattern);
             });
         }
-     
+
         private List<string> GetDetailUrlListByUrl(string urlitem, string[] detailPattern)
         {
             return GetUrlListByUrl(urlitem, detailPattern);
@@ -248,7 +269,7 @@ namespace Pathrough.BLL.Spider
             return null;
         }
 
-        private static string AddUrl(HtmlNode node, List<string> urlList,string[] detailPatterns)
+        private static string AddUrl(HtmlNode node, List<string> urlList, string[] detailPatterns)
         {
             if (node.Name == "a")
             {
@@ -260,7 +281,7 @@ namespace Pathrough.BLL.Spider
                         {
                             string url = attr.Value;
                             if (string.IsNullOrWhiteSpace(attr.Value) == false
-                    && IsMatchOne(url, detailPatterns) && urlList.Contains(url)==false)
+                    && IsMatchOne(url, detailPatterns) && urlList.Contains(url) == false)
                             {
                                 urlList.Add(url);
                             }

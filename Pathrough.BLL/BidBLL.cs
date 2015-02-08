@@ -34,15 +34,10 @@ namespace Pathrough.BLL
             }            
         }
 
-        //#region IOrderDAL的专用方法
-        //public void 专用方法Dom()
-        //{
-        //    IBidDAL orderbll = dalService as IBidDAL;
-        //    //调用IOrderDAL的专有方法
-        //    //orderbll.专有方法();
-        //}
-        //#endregion
-
+        public List<Bid> GetPageList(int pageIndex, int pageSize, out int pageCount, out int recordCount)
+        {
+            return bidDal.GetPageList(pageIndex, pageSize, out  pageCount, out  recordCount);
+        }
         public void CreateLuceneIndex(List<Bid> bidList)
         {
             foreach(var bid in bidList)

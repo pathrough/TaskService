@@ -28,5 +28,12 @@ namespace Pathrough.EF
         {
             return _Context.Bids.FirstOrDefault(d=>d.BidSourceUrl==url);
         }
+
+
+        public List<Bid> GetPageList(int pageIndex, int pageSize, out int pageCount, out int recordCount)
+        {
+            var query = _Context.Bids.OrderByDescending(d=>d.BidID);
+            return GetPageList(query, pageIndex, pageSize, out  pageCount, out  recordCount);
+        }
     }
 }

@@ -18,9 +18,5 @@ namespace Pathrough.BLL
         /// </summary>
         protected IDALBase<T> dalService;
 
-        //public void Insert(T entity)
-        //{
-        //    dalService.Insert(entity);
-        //}
     }
 }
