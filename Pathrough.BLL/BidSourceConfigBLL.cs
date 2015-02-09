@@ -12,12 +12,16 @@ namespace Pathrough.BLL
     public interface IInsertHandler
     {
         void ParameterInvalid();
+
+        void EntityRepeat();
     }
     public interface IBidSourceConfigBLL
     {
         void Insert(BidSourceConfig entity, IInsertHandler handler);
 
         List<BidSourceConfig> GetList(string areaNo,int pageIndex,int pageSize,out int pageCount,out int recordCount);
+
+        List<BidSourceConfig> GetPageList(int pageIndex, int pageSize, out int pageCount, out int recordCount);
     }
     public class BidSourceConfigBLL : BLLBase<BidSourceConfig>, IBidSourceConfigBLL
     {
@@ -49,15 +53,15 @@ namespace Pathrough.BLL
             }        
             else
             {
-                existEntity.ListUrl = entity.ListUrl;
-                existEntity.DetailUrlPattern = entity.DetailUrlPattern;
-                existEntity.TitleXpath = entity.TitleXpath;
-                existEntity.ContentXpath = entity.ContentXpath;
-                existEntity.PubishDateXpath = entity.PubishDateXpath;
-                existEntity.PubishDatePattern = entity.PubishDatePattern;
-                existEntity.AreaName = entity.AreaName;
-                existEntity.AreaNo = entity.AreaNo;
-                dal.Update(existEntity);
+                //existEntity.ListUrl = entity.ListUrl;
+                //existEntity.DetailUrlPattern = entity.DetailUrlPattern;
+                //existEntity.TitleXpath = entity.TitleXpath;
+                //existEntity.ContentXpath = entity.ContentXpath;
+                //existEntity.PubishDateXpath = entity.PubishDateXpath;
+                //existEntity.PubishDatePattern = entity.PubishDatePattern;
+                //existEntity.AreaName = entity.AreaName;
+                //existEntity.AreaNo = entity.AreaNo;
+                //dal.Update(existEntity);
             }
         }
 
@@ -65,6 +69,11 @@ namespace Pathrough.BLL
         public List<BidSourceConfig> GetList(string areaNo,int pageIndex,int pageSize,out int pageCount,out int recordCount)
         {
             return dal.GetList(areaNo, pageIndex, pageSize, out pageCount, out recordCount);
+        }
+
+        public List<BidSourceConfig> GetPageList(int pageIndex, int pageSize, out int pageCount, out int recordCount)
+        {
+            return dal.GetPageList(pageIndex, pageSize, out  pageCount, out  recordCount);
         }
     }
 }

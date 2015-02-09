@@ -20,10 +20,6 @@ namespace Pathrough.BLL
             : base(new BidDAL())
         {
             bidDal = (IBidDAL)this.dalService;
-            ////初始化dal服务
-            //this.dalService = DALFactory.CreateOrder<IBidDAL>
-            //    (FactoryConfig.Bid.AssemblyPath, FactoryConfig.Bid.ClassName);
-            //this.dalService = new BidDAL();
         }
         public void Insert(Bid bid)
         {

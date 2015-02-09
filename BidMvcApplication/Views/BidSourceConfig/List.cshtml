@@ -1,0 +1,37 @@
+﻿@model List<Pathrough.Entity.BidSourceConfig>
+
+@{
+    ViewBag.Title = "List";
+}
+<div class="container">
+    <h2>数据源站点配置</h2>
+    <div class="table-responsive" >
+        <table class="table-responsive table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>ListUrl</th>
+                    <th>DetailUrlPatter</th>
+                    <th>ContentXpath</th>
+                    <th>TitleXpath</th>
+                    <th>PublishDateXpath</th>
+                    <th>PublishDatePattern</th>
+                    <th>AreaName</th>
+                    <th>AreaNo</th>
+                </tr>
+                @foreach(var item in Model)
+                {
+                    <tr>
+                        <td>@item.ListUrl</td>
+                        <td>@item.DetailUrlPattern</td>
+                        <td>@item.ContentXpath</td>
+                        <td>@item.TitleXpath</td>
+                        <td>@item.PubishDateXpath</td>
+                        <td>@item.PubishDatePattern</td>
+                        <td>@item.AreaName</td>
+                        <td>@item.AreaNo</td>
+                    </tr>
+                }
+            </thead>
+        </table>
+    </div>
+</div>

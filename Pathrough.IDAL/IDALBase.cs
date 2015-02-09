@@ -35,6 +35,6 @@ namespace Pathrough.IDAL
         /// </summary>
         /// <param name="ID">标识ID</param>
         /// <returns>指定ID记录对应的实体</returns>
-        T GetEntity(long ID);
+        T GetEntity(long ID);       
     }
 }

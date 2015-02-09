@@ -11,5 +11,6 @@ namespace Pathrough.IDAL
     {
         List<BidSourceConfig> GetList(string areaNo, int pageIndex, int pageSize, out int pageCount, out int recordCount);
         BidSourceConfig GetEntityByUrl(string url);
+        List<BidSourceConfig> GetPageList(int pageIndex, int pageSize, out int pageCount, out int recordCount);
     }
 }

@@ -13,16 +13,16 @@ namespace Pathrough.EF
         public BidDAL()
         {
         }
-        public override void Insert(Bid entity)
-        {
-            _Context.Bids.Add(entity);
-            _Context.SaveChanges();
-        }
+        //public override void Insert(Bid entity)
+        //{
+        //    _Context.Bids.Add(entity);
+        //    _Context.SaveChanges();
+        //}
 
-        public override void Update(Bid entity)
-        {
-            _Context.SaveChanges();
-        }
+        //public override void Update(Bid entity)
+        //{
+        //    _Context.SaveChanges();
+        //}
 
         public Bid GetEntityByUrl(string url)
         {
@@ -32,7 +32,7 @@ namespace Pathrough.EF
 
         public List<Bid> GetPageList(int pageIndex, int pageSize, out int pageCount, out int recordCount)
         {
-            var query = _Context.Bids.OrderByDescending(d=>d.BidID);
+            var query = _Context.Bids.OrderByDescending(d => d.BidID);
             return GetPageList(query, pageIndex, pageSize, out  pageCount, out  recordCount);
         }
     }

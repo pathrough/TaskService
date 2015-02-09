@@ -12,6 +12,6 @@ namespace Pathrough.IDAL
         //可以添加bid相关的抽象方法
         Bid GetEntityByUrl(string url);
 
-        List<Bid> GetPageList(int pageIndex, int pageSize, out int pageCount, out int recordCount)
+        List<Bid> GetPageList(int pageIndex, int pageSize, out int pageCount, out int recordCount);
     }
 }

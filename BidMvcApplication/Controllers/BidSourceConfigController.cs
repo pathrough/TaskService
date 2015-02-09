@@ -24,16 +24,24 @@ namespace BidMvcApplication.Controllers
             return View(entity);
         }      
         
-        public ActionResult List(string areaNo,int pageIndex,int pageSize)
+        public ActionResult List()
         {
+            int p = 0;
+            int.TryParse(Request.QueryString["p"], out p);
             int pageCount, recordCount;
-            bidSourceConfigBLL.GetList(areaNo, pageIndex, pageSize, out pageCount, out recordCount);
-            return View();
+            var list = bidSourceConfigBLL.GetPageList(p, 20, out pageCount, out recordCount);
+            return View(list);
         }
 
         public void ParameterInvalid()
         {
-            
+            throw new NotImplementedException();
+        }
+
+
+        public void EntityRepeat()
+        {
+            throw new NotImplementedException();
         }
     }
 }

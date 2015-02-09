@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Pathrough.EF.Common;
+using System.Data.Entity.Core.Objects.DataClasses;
 
 namespace Pathrough.EF
 {
@@ -48,7 +49,7 @@ namespace Pathrough.EF
 
 
         protected List<T> GetPageList(IQueryable<T> query, int pageIndex, int pageSize, out int pageCount, out int recordCount)
-        {
+        {            
             return query.TakePage<T>(pageIndex, pageSize, out pageCount, out recordCount).ToList();
         }
     }

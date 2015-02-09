@@ -12,10 +12,10 @@ namespace Pathrough.EF
         public ExceptionBidSourceConfigDAL()
         {
         }
-        public override void Insert(ExceptionBidSourceConfig entity)
-        {
-            _Context.ExceptionBidSourceConfigs.Add(entity);
-            _Context.SaveChanges();
-        }
+        //public override void Insert(ExceptionBidSourceConfig entity)
+        //{
+        //    _Context.ExceptionBidSourceConfigs.Add(entity);
+        //    _Context.SaveChanges();
+        //}
     }
 }

@@ -83,7 +83,7 @@ namespace Pathrough.BLL.Spider
                             }
                             try
                             {
-                                bid.BidContent = doc.DocumentNode.SelectSingleNode(config.ContentXpath).InnerText;
+                                bid.BidContent = doc.DocumentNode.SelectSingleNode(config.ContentXpath).InnerHtml;
                             }
                             catch (Exception e)
                             {

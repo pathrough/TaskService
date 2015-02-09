@@ -18,5 +18,9 @@ namespace Pathrough.BLL
         /// </summary>
         protected IDALBase<T> dalService;
 
+        public T GetEntity(long id)
+        {
+            return dalService.GetEntity(id);
+        }       
     }
 }
