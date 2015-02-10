@@ -4,14 +4,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("http://apps.bdimg.com/libs/angular.js/1.2.15/angular.min.js")
     @Styles.Render("http://apps.bdimg.com/libs/bootstrap/3.2.0/css/bootstrap.min.css");
 </head>
 <body>
     @RenderBody()
 
-    @Scripts.Render("~/bundles/jquery")
     @RenderSection("scripts", required: false)
 </body>
 </html>
