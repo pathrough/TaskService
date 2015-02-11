@@ -254,6 +254,10 @@
       <Project>{83dd654f-9e92-4dd8-a12f-602f5814849d}</Project>
       <Name>Pathrough.BLL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Pathrough.Common\Pathrough.Common.csproj">
+      <Project>{ef5480ae-30be-48f1-bc36-3c5a74ccd0a1}</Project>
+      <Name>Pathrough.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Pathrough.EF\Pathrough.EF.csproj">
       <Project>{a7f2a549-fc05-4ecd-b46f-e0b9d2ebebf5}</Project>
       <Name>Pathrough.EF</Name>
