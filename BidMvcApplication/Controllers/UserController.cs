@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BidMvcApplication.Models;
+using Pathrough.Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -18,10 +20,10 @@ namespace BidMvcApplication.Controllers
         
         public ActionResult Login(string userNo,string userPwd)
         {
-            if(Request.Form.Count>0 | Request.QueryString.Count>0)
+            if (!string.IsNullOrWhiteSpace(userNo) && !string.IsNullOrWhiteSpace(userPwd))
             {
-                UserAuthorize.Login(userNo, userPwd, this);
-            }            
+                UserAuthorize.Login(userNo, userPwd, this);    
+            }                  
             return View();
         }
 
@@ -114,13 +116,13 @@ namespace BidMvcApplication.Controllers
 
         public void UserNoOrPasswordInvlid()
         {
-            Response.Write("用户名或密码错误！");
+            Response.Write(new JsonResultEntity { Result = 2, Msg = "用户名或密码错误！" }.ToJson());
             Response.End();
         }
 
         public void LoginSuccess()
         {
-            Response.Write("登录成功");
+            Response.Write(new JsonResultEntity { Result = 1, Msg = "登录成功！" }.ToJson());
             Response.End();
         }
     }
