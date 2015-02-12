@@ -1,59 +1,75 @@
 ﻿@{
     ViewBag.Title = "Login";
+    //Layout = null;
 }
+    <form ng-app="formApp" ng-controller="validateCtrl" ng-submit="processForm()" novalidate name="userForm" role="form" method="post">
+        <div ng-show="respose!=''&&respose.Result==1" class="alert alert-success alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert"
+                    aria-hidden="true">
+                &times;
+            </button>
+            {{respose.Msg}}
+        </div>
+        <div ng-show="respose!=''&&respose.Result!=1" class="alert alert-danger alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert"
+                    aria-hidden="true">
+                &times;
+            </button>
+            {{respose.Msg}}
+        </div>
+        <div class="form-group">
+            <input name="userNo" ng-model="formData.userNo" ng-pattern="/^[A-Za-z]{1}[0-9A-Za-z_]{2,29}$/" required type="text" class="form-control" placeholder="请输入用户名,由字母、数字、下划线组成，以字母开头，3-30个字符">
+            <span style="color:red;" ng-show="userForm.userNo.$dirty&&userForm.userNo.$invalid">
+                <span ng-show="userForm.userNo.$error.required">必须填写用户名</span>
+                <span ng-show="userForm.userNo.$error.pattern">,由字母、数字、下划线组成，以字母开头，3-30个字符</span>
+            </span>
+        </div>
+        <div class="form-group">
+            <input name="userPwd" ng-maxlength="20" ng-minlength="6" required ng-model="formData.userPwd" type="password" class="form-control" placeholder="请输入密码">
+            <span style="color:red;" ng-show="userForm.userPwd.$dirty&&userForm.userPwd.$invalid">
+                <span ng-show="userForm.userPwd.$error.required">请输入密码</span>
+                <span ng-show="userForm.userPwd.$error.minlength">密码长度不能小于6个字符！</span>
+                <span ng-show="userForm.userPwd.$error.maxlength">密码长度不能大于20个字符！</span>
+            </span>
+        </div>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox"> 记住密码
+            </label>
+        </div>
+        <button type="submit" class="btn btn-primary" ng-disabled="!userForm.userNo.$dirty || userForm.userNo.$invalid ||
+    !userForm.userPwd.$dirty || userForm.userPwd.$invalid">
+            提交
+        </button>
+    </form>
+    <script>
+        var formApp = angular.module('formApp', []);
+        function validateCtrl($scope, $http) {
+            $scope.formData = {};
+            $scope.respose = "";
+            // process the form
+            $scope.processForm = function () {
+                $http.post("/User/Login", $scope.formData)
 
-<form ng-app="formApp" ng-controller="validateCtrl" ng-submit="processForm()" novalidate name="userForm" role="form" method="post">
-    <div class="form-group">
-        <input name="userNo" ng-model="formData.userNo" required type="text" class="form-control" placeholder="请输入用户名">
-        <span style="color:red;" ng-show="userForm.userNo.$dirty&&userForm.userNo.$invalid">
-            <span ng-show="userForm.userNo.$error.required">必须填写用户名</span>
-        </span>
-    </div>
-    <div class="form-group">
-        <input name="userPwd" ng-model="formData.userPwd" type="password" class="form-control" placeholder="请输入密码">
-        <span style="color:red;" ng-show="userForm.userPwd.$dirty&&userForm.userPwd.$invalid">
-            <span ng-show="userForm.userPwd.$error.required">请输入密码</span>
-        </span>
-    </div>
-    <div class="checkbox">
-        <label>
-            <input type="checkbox"> 记住密码
-        </label>
-    </div>
-    <button type="submit" class="btn btn-primary" ng-disabled="userForm.userNo.$dirty && userForm.userNo.$invalid ||
-userForm.userPwd.$dirty && userForm.userPwd.$invalid">
-        提交
-    </button>
-    {{formData}}
-
-</form>
-<script>
-    var formApp = angular.module('formApp', []);
-    function validateCtrl($scope, $http) {
-        $scope.formData = {};
-        // process the form
-        $scope.processForm = function () {
-            $http.post("/User/Login", $scope.formData)
-           
-            .success(function (data) {
-                console.log(data);
-                //if (data.success) {
-                //    alert("chenggong")
-                //} else {
-                //    alert("shibai")
-                //}
-                alert(data.Msg);
-                //if(data.Result=1)
-                //{
-                //    alert(1); 
-                //}
-            }).error(function () {
-                alert("erroe");
-            });
+                .success(function (data) {
+                    $scope.respose = data;
+                    //var respData = eval("("+data+")")
+                    //if (data.success) {
+                    //    alert("chenggong")
+                    //} else {
+                    //    alert("shibai")
+                    //}
+                    //alert(respData);
+                    //if(data.Result=1)
+                    //{
+                    //    alert(1);
+                    //}
+                }).error(function () {
+                    alert("出差了");
+                });
 
 
-        };
+            };
 
-    }
-</script>
-
+        }
+    </script>
