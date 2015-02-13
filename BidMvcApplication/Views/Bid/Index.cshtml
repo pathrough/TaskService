@@ -1,0 +1,30 @@
+﻿@model  List<Pathrough.Entity.Bid>
+@{
+    ViewBag.Title = "Index";
+}
+<div class="container">
+    <h2>招投标列表</h2>
+    @*<p>创建响应式表格 (将在小于768px的小型设备下水平滚动)。另外：添加交替单元格的背景色：</p>*@
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>bidID</th>
+                    <th>BidTitle</th>
+                    <th>BidPublishDate</th>
+                    <th>BidSourceUrl</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.BidID</td>
+                        <td><a target="_blank" href="/Bid/Details?id=@item.BidID">@item.BidTitle</a></td>
+                        <td>@(item.BidPublishDate.HasValue?item.BidPublishDate.Value.ToString("yyyy-MM-dd HH:mm"):"")</td>
+                        <td>@item.BidSourceUrl</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
